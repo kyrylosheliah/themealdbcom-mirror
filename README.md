@@ -4,9 +4,11 @@
 
 ### Backend
 
-Specify the backend server arguments
+Specify the backend server arguments in the `backend/.env` file
 
 ```
+NESTJS_PORT=3000
+FRONTEND_DOMAIN=http://localhost
 ```
 
 ```
@@ -17,9 +19,11 @@ npm run start
 
 ### Frontend
 
-Specify the frontend server arguments
+Specify the frontend server arguments in the `frontend/.env` file
 
 ```
+PORT=5000
+BACKEND_DOMAIN=http://localhost
 ```
 
 ```
