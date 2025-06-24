@@ -12,7 +12,9 @@ export class MealsService {
     private readonly configService: ConfigService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {
-    this.baseUrl += parseInt(this.configService.get<string>('THEMEALSDBCOM_API_KEY') || "0");
+    this.baseUrl += parseInt(
+      this.configService.get<string>("THEMEALSDBCOM_API_KEY") || "0",
+    );
   }
 
   private async getCachedOrFetch<T>(

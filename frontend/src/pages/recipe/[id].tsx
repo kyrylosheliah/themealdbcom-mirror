@@ -10,7 +10,7 @@ export default function RecipePage() {
   const get = async () => {
     const recipeResponse = await MealsService.getById(id);
     if (recipeResponse.meals === null) return;
-    if (Array.isArray(recipeResponse.meals)){
+    if (Array.isArray(recipeResponse.meals)) {
       setMeal(recipeResponse.meals[0]);
     }
   };

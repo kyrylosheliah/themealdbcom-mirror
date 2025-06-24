@@ -7,7 +7,9 @@ import {
 
 export default defineConfig({
   presets: [
-    presetWind3(), presetAttributify(), presetIcons(),
+    presetWind3(),
+    presetAttributify(),
+    presetIcons(),
     // ...
   ],
 });

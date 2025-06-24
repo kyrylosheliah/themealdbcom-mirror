@@ -56,5 +56,4 @@ category title
 - Adaptive mobile-friendly layout
 - Complete ESLint setup
 - Create tests
-- Provide run instructions
-- Ensure it's linted and formatted
+- Ensure it's linted

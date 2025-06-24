@@ -10,11 +10,21 @@ body {
   -webkit-background-size: 0.3rem 0.3rem;
   -moz-background-size: 0.3rem 0.3rem;
   background-size: 0.3rem 0.3rem;
-  background-image: -webkit-linear-gradient(left, #ccc8b1 1px, rgba(204,200,177,0) 1px), -webkit-linear-gradient(top, #ccc8b1 1px, rgba(204,200,177,0) 1px);
-  background-image: -moz-linear-gradient(left, #ccc8b1 1px, rgba(204,200,177,0) 1px), -moz-linear-gradient(top, #ccc8b1 1px, rgba(204,200,177,0) 1px);
-  background-image: -o-linear-gradient(left, #ccc8b1 1px, rgba(204,200,177,0) 1px), -o-linear-gradient(top, #ccc8b1 1px, rgba(204,200,177,0) 1px);
-  background-image: -ms-linear-gradient(left, #ccc8b1 1px, rgba(204,200,177,0) 1px), -ms-linear-gradient(top, #ccc8b1 1px, rgba(204,200,177,0) 1px);
-  background-image: linear-gradient(to right, #ccc8b1 1px, rgba(204,200,177,0) 1px), linear-gradient(to bottom, #ccc8b1 1px, rgba(204,200,177,0) 1px);
+  background-image:
+    -webkit-linear-gradient(left, #ccc8b1 1px, rgba(204, 200, 177, 0) 1px),
+    -webkit-linear-gradient(top, #ccc8b1 1px, rgba(204, 200, 177, 0) 1px);
+  background-image:
+    -moz-linear-gradient(left, #ccc8b1 1px, rgba(204, 200, 177, 0) 1px),
+    -moz-linear-gradient(top, #ccc8b1 1px, rgba(204, 200, 177, 0) 1px);
+  background-image:
+    -o-linear-gradient(left, #ccc8b1 1px, rgba(204, 200, 177, 0) 1px),
+    -o-linear-gradient(top, #ccc8b1 1px, rgba(204, 200, 177, 0) 1px);
+  background-image:
+    -ms-linear-gradient(left, #ccc8b1 1px, rgba(204, 200, 177, 0) 1px),
+    -ms-linear-gradient(top, #ccc8b1 1px, rgba(204, 200, 177, 0) 1px);
+  background-image:
+    linear-gradient(to right, #ccc8b1 1px, rgba(204, 200, 177, 0) 1px),
+    linear-gradient(to bottom, #ccc8b1 1px, rgba(204, 200, 177, 0) 1px);
   font-family: helvetica, sans-serif;
   letter-spacing: 0.03rem;
   font-weight: lighter;
@@ -57,7 +67,7 @@ blockquote {
   padding: 0.5rem;
 }
 blockquote:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -1.5rem;
@@ -72,7 +82,7 @@ cite {
   padding-left: 2rem;
 }
 cite:before {
-  content: '';
+  content: "";
   position: absolute;
   width: 0.7rem;
   height: 0.7rem;
@@ -115,19 +125,19 @@ label {
   margin: 0.5rem 0;
 }
 textarea,
-input[type=text],
-input[type=password],
-input[type=url],
-input[type=email],
-input[type=tel],
-input[type=search],
-input[type=number],
-input[type=color],
-input[type=date],
-input[type=month],
-input[type=week],
-input[type=datetime],
-input[type=datetime-local] {
+input[type="text"],
+input[type="password"],
+input[type="url"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="number"],
+input[type="color"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="datetime"],
+input[type="datetime-local"] {
   padding: 0.5rem;
   font-size: 1em;
   border: none;
@@ -143,7 +153,8 @@ input[type=datetime-local] {
   font-weight: inherit;
 }
 select {
-  background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIwLjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0LjkgMTAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQuOSAxMDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiM0NDQ0NDQ7fQo8L3N0eWxlPgo8dGl0bGU+YXJyb3dzPC90aXRsZT4KPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSIxLjQsNC43IDIuNSwzLjIgMy41LDQuNyAiLz4KPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSIzLjUsNS4zIDIuNSw2LjggMS40LDUuMyAiLz4KPC9zdmc+Cg==") no-repeat right;
+  background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIwLjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0LjkgMTAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQuOSAxMDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiM0NDQ0NDQ7fQo8L3N0eWxlPgo8dGl0bGU+YXJyb3dzPC90aXRsZT4KPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSIxLjQsNC43IDIuNSwzLjIgMy41LDQuNyAiLz4KPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSIzLjUsNS4zIDIuNSw2LjggMS40LDUuMyAiLz4KPC9zdmc+Cg==")
+    no-repeat right;
   padding: 0.5rem;
   font-size: 1em;
   border: none;
@@ -158,9 +169,9 @@ select {
   letter-spacing: inherit;
   font-weight: inherit;
 }
-input[type=submit]:not(:disabled),
-input[type=button]:not(:disabled),
-input[type=reset]:not(:disabled) {
+input[type="submit"]:not(:disabled),
+input[type="button"]:not(:disabled),
+input[type="reset"]:not(:disabled) {
   padding: 0.5rem;
   font-size: 1em;
   border: none;
@@ -186,21 +197,21 @@ input[type=reset]:not(:disabled) {
   -ms-transition-property: color, background-color, box-shadow;
   transition-property: color, background-color, box-shadow;
 }
-input[type=submit]:not(:disabled):hover,
-input[type=button]:not(:disabled):hover,
-input[type=reset]:not(:disabled):hover {
+input[type="submit"]:not(:disabled):hover,
+input[type="button"]:not(:disabled):hover,
+input[type="reset"]:not(:disabled):hover {
   -webkit-box-shadow: 0.2em 0.2em 0.1em 0 #bab5a1;
   box-shadow: 0.2em 0.2em 0.1em 0 #bab5a1;
 }
-input[type=submit]:not(:disabled):hover,
-input[type=button]:not(:disabled):hover,
-input[type=reset]:not(:disabled):hover {
+input[type="submit"]:not(:disabled):hover,
+input[type="button"]:not(:disabled):hover,
+input[type="reset"]:not(:disabled):hover {
   background-color: #454138;
   color: #dcd8c0;
 }
-input[type=submit]:not(:disabled):active,
-input[type=button]:not(:disabled):active,
-input[type=reset]:not(:disabled):active {
+input[type="submit"]:not(:disabled):active,
+input[type="button"]:not(:disabled):active,
+input[type="reset"]:not(:disabled):active {
   background-color: #dcd8c0;
   color: #454138;
 }
@@ -259,7 +270,7 @@ button:not(:disabled):hover,
 }
 button:not(:disabled):before,
 .button:before {
-  content: '';
+  content: "";
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -o-transition: all 0.2s;
@@ -273,7 +284,7 @@ button:not(:disabled):before,
 }
 button:not(:disabled):after,
 .button:after {
-  content: '';
+  content: "";
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -o-transition: all 0.2s;
