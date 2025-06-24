@@ -4,7 +4,7 @@ import {
   presetIcons,
   presetWebFonts,
   presetWind3,
-} from 'unocss';
+} from "unocss";
 
 export default defineConfig({
   presets: [
