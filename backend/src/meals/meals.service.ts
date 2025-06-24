@@ -26,8 +26,8 @@ export class MealsService {
     return result;
   }
 
-  async searchMeals(name: string) {
-    if (!name) return { meals: null };
+  async searchMeals(name?: string) {
+    name = name || "";
     return this.getCachedOrFetch(`search_meals_${name}`, async () =>
       axios.get(`${this.baseUrl}/search.php?s=${name}`).then(res => res.data),
     );
@@ -77,9 +77,6 @@ export class MealsService {
     area?: string;
     ingredient?: string;
   }) {
-    console.log("category", category);
-    console.log("area",area);
-    console.log("ingredient",ingredient);
     let url = `${this.baseUrl}/filter.php?`;
     let cacheKey = "filter_meals_";
     if (category) {

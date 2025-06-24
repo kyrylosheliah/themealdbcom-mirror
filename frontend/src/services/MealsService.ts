@@ -6,7 +6,7 @@ const fetchJson = (route: string) =>
   axios.get(BACKEND + route).then(res => res.data);
 
 const search = async (name?: string) =>
-  fetchJson(`/search.php?s=${name}`).catch(
+  fetchJson(`/search.php?s=${name || ""}`).catch(
     () => [],
   );
 
@@ -30,7 +30,17 @@ const filter = async ({
     return fetchJson(url);
   };
 
+const getCategories = async (name?: string) =>
+  fetchJson(`/list.php?c=list`).catch(
+    () => [],
+  );
+
+const getById = async (id: any) =>
+  fetchJson(`/lookup.php?i=${id}`).catch(() => undefined);
+
 export default {
   search,
   filter,
+  getCategories,
+  getById,
 };

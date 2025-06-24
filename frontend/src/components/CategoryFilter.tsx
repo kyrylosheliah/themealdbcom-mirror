@@ -1,3 +1,4 @@
+import MealsService from "@/services/MealsService";
 import { useEffect, useState } from "react";
 
 export default function CategoryFilter({
@@ -7,10 +8,13 @@ export default function CategoryFilter({
 }) {
   const [categories, setCategories] = useState<string[]>([]);
 
+  const fetchCategories = async () => {
+    const categoriesResponse = await MealsService.getCategories();
+    setCategories(categoriesResponse.meals.map((c: any) => c.strCategory));
+  };
+
   useEffect(() => {
-    fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list")
-      .then(res => res.json())
-      .then(data => setCategories(data.meals.map((c: any) => c.strCategory)));
+    fetchCategories();
   }, []);
 
   return (

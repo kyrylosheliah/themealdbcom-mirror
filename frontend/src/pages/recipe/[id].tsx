@@ -1,3 +1,4 @@
+import MealsService from "@/services/MealsService";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -6,12 +7,16 @@ export default function RecipePage() {
   const { id } = router.query;
   const [meal, setMeal] = useState<any>(null);
 
-  useEffect(() => {
-    if (id) {
-      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
-        .then(res => res.json())
-        .then(data => setMeal(data.meals[0]));
+  const get = async () => {
+    const recipeResponse = await MealsService.getById(id);
+    if (recipeResponse.meals === null) return;
+    if (Array.isArray(recipeResponse.meals)){
+      setMeal(recipeResponse.meals[0]);
     }
+  };
+
+  useEffect(() => {
+    if (id) get();
   }, [id]);
 
   if (!meal) return <div className="p-4">Loading...</div>;

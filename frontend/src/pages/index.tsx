@@ -12,9 +12,11 @@ export default function Home() {
     if (category) {
       mealsResponse = await MealsService.filter({ category });
     } else {
-      mealsResponse = await MealsService.search(category);
+      mealsResponse = await MealsService.search();
     }
-    setMeals(mealsResponse || []);
+    if (mealsResponse) {
+      setMeals(mealsResponse.meals || []);
+    }
   };
 
   useEffect(() => {
