@@ -7,10 +7,21 @@ const emitHttpGet = (route: string) =>
 
 const ingredientKeys = Array.from({ length: 20 }, (_, i) => `strIngredient${i + 1}`);
 
+const filterKeys = ["c", "i", "a", "s"];
+
+const filterKeyToTitle = (key: string): string | undefined => {
+  switch (key) {
+    case "s": return "Search";
+    case "c": return "Category";
+    case "a": return "Area";
+    case "i": return "Ingredient";
+  }
+  return "";
+};
+
 export interface MealSearch {
-  s: string | null;
-  c: string | null;
-  a: string | null;
+  key: string;
+  value: string;
 }
 
 const encodeSearchParameter = (parameter: string) =>
@@ -18,21 +29,6 @@ const encodeSearchParameter = (parameter: string) =>
 
 const decodeSearchParameter = (parameter: string) =>
   parameter.charAt(0).toUpperCase() + parameter.replaceAll("_", " ").slice(1);
-
-const emptySearch = (): MealSearch => ({
-  s: null,
-  c: null,
-  a: null,
-});
-
-const searchKeyToTitle = (key: string): string | undefined => {
-  switch (key) {
-    case "s": return "Search";
-    case "c": return "Category";
-    case "a": return "Area";
-  }
-  return undefined;
-};
 
 const search = async (name?: string | null) =>
   emitHttpGet(`/search.php?s=${name || ""}`);
@@ -47,12 +43,14 @@ const filterWithIngredient = async (ingredient: string | null) =>
   emitHttpGet(`/filter.php?i=${ingredient}`);
 
 const getCategories = async () => emitHttpGet(`/list.php?c=list`);
+const getAreas = async () => emitHttpGet(`/list.php?a=list`);
+const getIngredients = async () => emitHttpGet(`/list.php?i=list`);
 
 const getById = async (id: any) => emitHttpGet(`/lookup.php?i=${id}`);
 
 export default {
-  emptySearch,
-  searchKeyToTitle,
+  filterKeys,
+  filterKeyToTitle,
   search,
   encodeSearchParameter,
   decodeSearchParameter,
@@ -61,5 +59,7 @@ export default {
   filterWithArea,
   filterWithIngredient,
   getCategories,
+  getAreas,
+  getIngredients,
   getById,
 };

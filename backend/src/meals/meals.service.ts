@@ -17,28 +17,27 @@ export class MealsService {
     );
   }
 
-  private async getCachedOrFetch<T>(
-    key: string,
-    fetchFn: () => Promise<T>,
-  ): Promise<T> {
+  private async getCachedOrFetch<T>(key: string, url: string): Promise<T> {
     const cached = await this.cacheManager.get<T>(key);
     if (cached) return cached;
-    const result = await fetchFn();
+    const result = await axios.get(url).then(res => res.data);
     await this.cacheManager.set(key, result);
     return result;
   }
 
   async searchMeals(name?: string) {
     name = name || "";
-    return this.getCachedOrFetch(`search_meals_${name}`, async () =>
-      axios.get(`${this.baseUrl}/search.php?s=${name}`).then(res => res.data),
+    return this.getCachedOrFetch(
+      `search_meals_${name}`,
+      `${this.baseUrl}/search.php?s=${name}`,
     );
   }
 
   async getMealById(id: string) {
     if (!id) return { meals: null };
-    return this.getCachedOrFetch(`meal_${id}`, async () =>
-      axios.get(`${this.baseUrl}/lookup.php?i=${id}`).then(res => res.data),
+    return this.getCachedOrFetch(
+      `meal_${id}`,
+      `${this.baseUrl}/lookup.php?i=${id}`,
     );
   }
 
@@ -46,27 +45,21 @@ export class MealsService {
     return axios.get(`${this.baseUrl}/random.php`).then(res => res.data);
   }
 
-  async getCategories() {
-    return this.getCachedOrFetch("categories", async () =>
-      axios.get(`${this.baseUrl}/categories.php`).then(res => res.data),
-    );
-  }
-
   async getAreas() {
-    return this.getCachedOrFetch("areas", async () =>
-      axios.get(`${this.baseUrl}/list.php?a=list`).then(res => res.data),
-    );
+    return this.getCachedOrFetch("areas", `${this.baseUrl}/list.php?a=list`);
   }
 
-  async getCategoriesList() {
-    return this.getCachedOrFetch("categories_list", async () =>
-      axios.get(`${this.baseUrl}/list.php?c=list`).then(res => res.data),
+  async getCategories() {
+    return this.getCachedOrFetch(
+      "categories_list",
+      `${this.baseUrl}/list.php?c=list`,
     );
   }
 
   async getIngredients() {
-    return this.getCachedOrFetch("ingredients", async () =>
-      axios.get(`${this.baseUrl}/list.php?i=list`).then(res => res.data),
+    return this.getCachedOrFetch(
+      "ingredients",
+      `${this.baseUrl}/list.php?i=list`,
     );
   }
 
@@ -93,17 +86,16 @@ export class MealsService {
     } else {
       return { meals: null };
     }
-    return this.getCachedOrFetch(cacheKey, async () =>
-      axios.get(url).then(res => res.data),
-    );
+    return this.getCachedOrFetch(cacheKey, url);
   }
 
   async searchByFirstLetter(letter: string) {
     if (!letter || letter.length !== 1) {
       return { meals: null };
     }
-    return this.getCachedOrFetch(`search_by_letter_${letter}`, async () =>
-      axios.get(`${this.baseUrl}/search.php?f=${letter}`).then(res => res.data),
+    return this.getCachedOrFetch(
+      `search_by_letter_${letter}`,
+      `${this.baseUrl}/search.php?f=${letter}`,
     );
   }
 }

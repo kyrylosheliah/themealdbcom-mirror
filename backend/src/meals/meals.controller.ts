@@ -23,13 +23,7 @@ export class MealsController {
     return this.mealsService.getRandomMeal();
   }
 
-  // List all categories
-  @Get("categories.php")
-  async getCategories() {
-    return this.mealsService.getCategories();
-  }
-
-  // List all areas
+  // List all search filters
   @Get("list.php")
   async getList(
     @Query("a") area?: string,
@@ -37,7 +31,7 @@ export class MealsController {
     @Query("i") ingredient?: string,
   ) {
     if (area === "list") return this.mealsService.getAreas();
-    if (category === "list") return this.mealsService.getCategoriesList();
+    if (category === "list") return this.mealsService.getCategories();
     if (ingredient === "list") return this.mealsService.getIngredients();
     return { meals: null };
   }
