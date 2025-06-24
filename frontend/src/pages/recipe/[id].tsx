@@ -44,6 +44,7 @@ export default function RecipePage() {
         alt={meal.strMeal}
         className="my-4 w-full max-w-md"
       />
+      <figure>
       <h2 className="text-xl font-semibold">Ingredients</h2>
       <ul className="pl-4">
         {MealsService.ingredientKeys.map(
@@ -60,10 +61,13 @@ export default function RecipePage() {
             ),
         )}
       </ul>
+      </figure>
+      <figure>
       <h2 className="text-xl font-semibold">Instructions</h2>
-      <blockquote className="whitespace-pre-line mt-2">
+      <blockquote className="ml-10 whitespace-pre-line">
         {meal.strInstructions}
       </blockquote>
+      </figure>
     </div>
   );
 }
