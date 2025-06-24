@@ -9,7 +9,9 @@ export default function CategoryFilter({
   const [categories, setCategories] = useState<string[]>([]);
 
   const fetchCategories = async () => {
-    const categoriesResponse = await MealsService.getCategories();
+    const categoriesResponse = await MealsService.getCategories()
+      .then(res => res.data)
+      .catch(() => []);
     setCategories(categoriesResponse.meals.map((c: any) => c.strCategory));
   };
 

@@ -2,41 +2,53 @@ import axios from "axios";
 
 const BACKEND = process.env.NEXT_PUBLIC_BACKEND_DOMAIN || "";
 
-const fetchJson = (route: string) =>
-  axios.get(BACKEND + route).then(res => res.data);
+const emitHttpGet = (route: string) =>
+  axios.get(BACKEND + route);
 
-const search = async (name?: string) =>
-  fetchJson(`/search.php?s=${name || ""}`).catch(() => []);
+export interface MealSearch {
+  s: string | null;
+  c: string | null;
+  a: string | null;
+}
 
-const filter = async ({
-  category,
-  area,
-  ingredient,
-}: {
-  category?: string;
-  area?: string;
-  ingredient?: string;
-}) => {
-  let url = "/filter.php?";
-  if (category) {
-    url += `c=${category}`;
-  } else if (area) {
-    url += `a=${area}`;
-  } else if (ingredient) {
-    url += `i=${ingredient}`;
+const emptySearch = (): MealSearch => ({
+  s: null,
+  c: null,
+  a: null,
+});
+
+const searchKeyToTitle = (key: string): string | undefined => {
+  switch (key) {
+    case "s": return "Search";
+    case "c": return "Category";
+    case "a": return "Area";
   }
-  return fetchJson(url);
+  return undefined;
 };
 
-const getCategories = async (name?: string) =>
-  fetchJson(`/list.php?c=list`).catch(() => []);
+const search = async (name?: string | null) =>
+  emitHttpGet(`/search.php?s=${name || ""}`);
 
-const getById = async (id: any) =>
-  fetchJson(`/lookup.php?i=${id}`).catch(() => undefined);
+const filterWithCategory = async (category: string | null) =>
+  emitHttpGet(`/filter.php?c=${category}`);
+
+const filterWithArea = async (area: string | null) =>
+  emitHttpGet(`/filter.php?a=${area}`);
+
+const filterWithIngredient = async (ingredient: string | null) =>
+  emitHttpGet(`/filter.php?i=${ingredient}`);
+
+const getCategories = async () => emitHttpGet(`/list.php?c=list`);
+
+const getById = async (id: any) => emitHttpGet(`/lookup.php?i=${id}`);
 
 export default {
+  emptySearch,
+  searchKeyToTitle,
   search,
-  filter,
+  filterWithCategory,
+  filterWithArea,
+  filterWithIngredient,
   getCategories,
   getById,
 };

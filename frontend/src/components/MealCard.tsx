@@ -3,14 +3,17 @@ import Link from "next/link";
 export default function MealCard({ meal }: { meal: any }) {
   return (
     <Link href={`/recipe/${meal.idMeal}`}>
-      <div className="border p-2 rounded hover:shadow cursor-pointer">
+      <figure className="group hover:shadow-xl m-0">
         <img
           src={meal.strMealThumb}
           alt={meal.strMeal}
-          className="w-full h-40 object-cover rounded"
+          className="p-0 m-0 w-full h-40 object-cover"
         />
-        <h3 className="mt-2 font-semibold text-center">{meal.strMeal}</h3>
-      </div>
+        {/* <figcaption className="font-semibold text-center">{meal.strMeal}</figcaption> */}
+        <button type="button" className="p-0 m-0 mt-2 w-full">
+          {meal.strMeal}
+        </button>
+      </figure>
     </Link>
   );
 }
