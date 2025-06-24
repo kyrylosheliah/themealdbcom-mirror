@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Param, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { MealsService } from './meals.service';
 
 @Controller()
@@ -7,18 +7,8 @@ export class MealsController {
 
   // Search meals by name
   @Get('search.php')
-  async searchMeals(@Query('s') searchTerm: string) {
-    switch (searchTerm) {
-      case "c":
-      case "a":
-      case "i":
-        break;
-      default:
-        throw new BadRequestException(
-          'Invalid search term, use either "c", "a" or "i"',
-        );
-    }
-    return this.mealsService.searchMeals(searchTerm);
+  async searchMeals(@Query('s') search: string) {
+    return this.mealsService.searchMeals(search);
   }
 
   // Get meal details by ID

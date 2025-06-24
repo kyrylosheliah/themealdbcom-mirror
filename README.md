@@ -33,6 +33,12 @@ npm i
 npm run start
 ```
 
+## Third-Party Dependencies
+
+The file `frontend/src/styles/yorha.css` is included for layout consistency.
+It is not authored or maintained by this project. It is pinned at a known
+version to avoid dependency issues or unexpected upstream changes.
+
 ## TODOs
 
 - Create endpoints:

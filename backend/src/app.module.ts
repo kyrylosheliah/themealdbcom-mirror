@@ -8,7 +8,10 @@ import { MealsModule } from 'src/meals/meals.module';
 
 @Module({
   imports: [
-    ConfigModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
     CacheModule.register({
       ttl: 300, // 5 minutes
       max: 1000, // capacity

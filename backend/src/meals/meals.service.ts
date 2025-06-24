@@ -2,14 +2,18 @@ import { Injectable, Inject } from "@nestjs/common";
 import { CACHE_MANAGER } from "@nestjs/cache-manager";
 import { Cache } from "cache-manager";
 import axios from "axios";
-
-const API_KEY = process.env.THEMEALSDBCOM_API_KEY || "0";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class MealsService {
-  private readonly baseUrl = `https://www.themealdb.com/api/json/v1/${API_KEY}`;
+  private baseUrl = `https://www.themealdb.com/api/json/v1/`;
 
-  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
+  constructor(
+    private readonly configService: ConfigService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+  ) {
+    this.baseUrl += parseInt(this.configService.get<string>('THEMEALSDBCOM_API_KEY') || "0");
+  }
 
   private async getCachedOrFetch<T>(
     key: string,
@@ -22,12 +26,10 @@ export class MealsService {
     return result;
   }
 
-  async searchMeals(searchTerm: "c" | "a" | "i") {
-    if (!searchTerm) return { meals: null };
-    return this.getCachedOrFetch(`search_meals_${searchTerm}`, async () =>
-      axios
-        .get(`${this.baseUrl}/search.php?s=${searchTerm}`)
-        .then(res => res.data),
+  async searchMeals(name: string) {
+    if (!name) return { meals: null };
+    return this.getCachedOrFetch(`search_meals_${name}`, async () =>
+      axios.get(`${this.baseUrl}/search.php?s=${name}`).then(res => res.data),
     );
   }
 
@@ -75,6 +77,9 @@ export class MealsService {
     area?: string;
     ingredient?: string;
   }) {
+    console.log("category", category);
+    console.log("area",area);
+    console.log("ingredient",ingredient);
     let url = `${this.baseUrl}/filter.php?`;
     let cacheKey = "filter_meals_";
     if (category) {
@@ -89,7 +94,9 @@ export class MealsService {
     } else {
       return { meals: null };
     }
-    return this.getCachedOrFetch(cacheKey, async () => axios.get(url));
+    return this.getCachedOrFetch(cacheKey, async () =>
+      axios.get(url).then(res => res.data),
+    );
   }
 
   async searchByFirstLetter(letter: string) {
