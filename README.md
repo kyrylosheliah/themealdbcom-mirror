@@ -46,7 +46,6 @@ version to avoid old dependency issues or unexpected upstream changes.
 
 ## TODOs
 
-- Display title based on the applied filter
 - Display specific recipe country
 - Display specific recipe ingredients
 - Specific recipe sidebar split

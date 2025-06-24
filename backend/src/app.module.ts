@@ -13,7 +13,7 @@ import { MealsModule } from "src/meals/meals.module";
       envFilePath: ".env",
     }),
     CacheModule.register({
-      ttl: 300, // 5 minutes
+      ttl: 3600, // 1 hour
       max: 1000, // capacity
       isGlobal: true,
     }),

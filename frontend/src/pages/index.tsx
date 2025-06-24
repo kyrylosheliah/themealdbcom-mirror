@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CategoryFilter from "@/components/CategoryFilter";
 import MealList from "@/components/MealList";
 import MealsService from "@/services/MealsService";
+import Head from "next/head";
 
 export default function Home() {
   const [meals, setMeals] = useState([]);
@@ -25,7 +26,14 @@ export default function Home() {
 
   return (
     <main className="p-4">
-      <h1 className="text-3xl font-bold mb-4">Recipes</h1>
+      <Head>
+        <title>
+          {category ? `${category} - TheMealDB.com` : "TheMealDB.com - mirror"}
+        </title>
+      </Head>
+      <h1 className="text-3xl font-bold mb-4">
+        {(category || "All") + " Recipes"}
+      </h1>
       <CategoryFilter onSelect={setCategory} />
       <MealList meals={meals} />
     </main>
