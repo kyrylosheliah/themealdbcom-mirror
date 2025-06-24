@@ -9,6 +9,7 @@ Specify the backend server arguments in the `backend/.env` file
 ```
 NESTJS_PORT=3000
 FRONTEND_DOMAIN=http://localhost
+THEMEALSDBCOM_API_KEY=1
 ```
 
 ```
@@ -41,7 +42,7 @@ npm run start
 - API calls interceptor for caching
 - Recipe List Page
 - Recipe Info Page
-- Init ESLint
-- Init Prettier
+- Setup ESLint
 - Set up tests
 - Provide run instructions
+- Ensure it's linted and formatted

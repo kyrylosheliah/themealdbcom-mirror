@@ -12,6 +12,8 @@ async function bootstrap() {
     origin: `${configService.get('FRONTEND_DOMAIN')}:${port}` || "http://localhost:5000",
   });
 
+  app.setGlobalPrefix("api/json/v1");
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
