@@ -2,19 +2,25 @@ import axios from "axios";
 
 const BACKEND = process.env.NEXT_PUBLIC_BACKEND_DOMAIN || "";
 
-const emitHttpGet = (route: string) =>
-  axios.get(BACKEND + route);
+const emitHttpGet = (route: string) => axios.get(BACKEND + route);
 
-const ingredientKeys = Array.from({ length: 20 }, (_, i) => `strIngredient${i + 1}`);
+const ingredientKeys = Array.from(
+  { length: 20 },
+  (_, i) => `strIngredient${i + 1}`,
+);
 
 const filterKeys = ["c", "i", "a", "s"];
 
 const filterKeyToTitle = (key: string): string | undefined => {
   switch (key) {
-    case "s": return "Search";
-    case "c": return "Category";
-    case "a": return "Area";
-    case "i": return "Ingredient";
+    case "s":
+      return "Search";
+    case "c":
+      return "Category";
+    case "a":
+      return "Area";
+    case "i":
+      return "Ingredient";
   }
   return "";
 };

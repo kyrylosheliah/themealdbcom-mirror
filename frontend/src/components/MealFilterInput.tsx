@@ -5,7 +5,7 @@ export default function CategoryFilter({
   search,
   select,
 }: {
-  search: MealSearch
+  search: MealSearch;
   select: (search: MealSearch) => void;
 }) {
   const [chips, setChips] = useState<string[]>([]);

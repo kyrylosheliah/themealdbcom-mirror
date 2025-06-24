@@ -24,7 +24,10 @@ export default function RecipePage() {
     if (recipeResponse.meals === null) return;
     if (Array.isArray(recipeResponse.meals)) {
       setMeal(recipeResponse.meals[0]);
-      similar.setSearch({key: "c", value: recipeResponse.meals[0].strCategory });
+      similar.setSearch({
+        key: "c",
+        value: recipeResponse.meals[0].strCategory,
+      });
     }
   };
 

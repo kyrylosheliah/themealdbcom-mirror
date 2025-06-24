@@ -28,7 +28,7 @@ export function useMealSearch() {
 
   const updateVisibleState = () => {
     if (typeof window === "undefined") return;
-    let href = window.location.href.split('?')[0];
+    let href = window.location.href.split("?")[0];
     if (search.key && search.value) {
       href += `?${search.key}=${search.value}`;
     }
@@ -51,9 +51,9 @@ export function useMealSearch() {
     let mealsResponse: any = undefined!;
     switch (search.key) {
       case "c":
-        mealsResponse = await MealsService.filterWithCategory(search.value).then(
-          res => res.data,
-        );
+        mealsResponse = await MealsService.filterWithCategory(
+          search.value,
+        ).then(res => res.data);
         break;
       case "a":
         mealsResponse = await MealsService.filterWithArea(search.value).then(
@@ -61,9 +61,9 @@ export function useMealSearch() {
         );
         break;
       case "i":
-        mealsResponse = await MealsService.filterWithIngredient(search.value).then(
-          res => res.data,
-        );
+        mealsResponse = await MealsService.filterWithIngredient(
+          search.value,
+        ).then(res => res.data);
         break;
       default:
         mealsResponse = await MealsService.search(search.value).then(
