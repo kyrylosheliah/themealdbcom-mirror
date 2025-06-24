@@ -43,6 +43,5 @@ npm run start
 - Recipe Info Page
 - Init ESLint
 - Init Prettier
-- Set up .env variables
 - Set up tests
 - Provide run instructions
