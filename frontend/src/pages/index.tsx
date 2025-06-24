@@ -39,12 +39,15 @@ export default function Home() {
     const s = searchParams.get("s");
     const c = searchParams.get("c");
     const a = searchParams.get("a");
+    const i = searchParams.get("i");
     if (s) {
       setSearch({...newSearch, ...{ s }});
     } else if (c) {
       setSearch({...newSearch, ...{ c }});
     } else if (a) {
       setSearch({...newSearch, ...{ a }});
+    } else if (i) {
+      setSearch({...newSearch, ...{ i }});
     }
   }, []);
 
@@ -58,7 +61,11 @@ export default function Home() {
       newSearchTitle = value;
       break;
     }
-    setSearchTitle(newSearchTitle);
+    setSearchTitle(
+      newSearchTitle
+        ? MealsService.decodeSearchParameter(newSearchTitle)
+        : "",
+    );
     history.replaceState(history.state, "", href);
   };
 

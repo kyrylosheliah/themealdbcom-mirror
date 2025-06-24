@@ -46,7 +46,6 @@ version to avoid old dependency issues or unexpected upstream changes.
 
 ## TODOs
 
-- Display specific recipe ingredients
 - Specific recipe sidebar split
 - Display the list of another recipes in the current category
 - Navigate to the recipe list filtered by category by clicking the sidebar

@@ -23,6 +23,7 @@ export default function RecipePage() {
     router.back();
   };
 
+
   useEffect(() => {
     if (id) get();
   }, [id]);
@@ -43,8 +44,26 @@ export default function RecipePage() {
         alt={meal.strMeal}
         className="my-4 w-full max-w-md"
       />
+      <h2 className="text-xl font-semibold">Ingredients</h2>
+      <ul className="pl-4">
+        {MealsService.ingredientKeys.map(
+          (key, i) =>
+            meal[key] && (
+              <li key={`ingredient_${i}`}>
+                <Link
+                  className="hover:underline"
+                  href={`/?i=${MealsService.encodeSearchParameter(meal[key])}`}
+                >
+                  {meal[key]}
+                </Link>
+              </li>
+            ),
+        )}
+      </ul>
       <h2 className="text-xl font-semibold">Instructions</h2>
-      <p className="whitespace-pre-line mt-2">{meal.strInstructions}</p>
+      <blockquote className="whitespace-pre-line mt-2">
+        {meal.strInstructions}
+      </blockquote>
     </div>
   );
 }

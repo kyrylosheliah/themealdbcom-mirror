@@ -5,11 +5,19 @@ const BACKEND = process.env.NEXT_PUBLIC_BACKEND_DOMAIN || "";
 const emitHttpGet = (route: string) =>
   axios.get(BACKEND + route);
 
+const ingredientKeys = Array.from({ length: 20 }, (_, i) => `strIngredient${i + 1}`);
+
 export interface MealSearch {
   s: string | null;
   c: string | null;
   a: string | null;
 }
+
+const encodeSearchParameter = (parameter: string) =>
+  parameter.toLowerCase().replaceAll(" ", "_");
+
+const decodeSearchParameter = (parameter: string) =>
+  parameter.charAt(0).toUpperCase() + parameter.replaceAll("_", " ").slice(1);
 
 const emptySearch = (): MealSearch => ({
   s: null,
@@ -46,6 +54,9 @@ export default {
   emptySearch,
   searchKeyToTitle,
   search,
+  encodeSearchParameter,
+  decodeSearchParameter,
+  ingredientKeys,
   filterWithCategory,
   filterWithArea,
   filterWithIngredient,
