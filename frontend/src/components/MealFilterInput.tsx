@@ -9,7 +9,7 @@ import MealsService, {
 } from "@/services/MealsService";
 import { useEffect, useState } from "react";
 
-export default function CategoryFilter({
+export default function MealFilterInput({
   search,
   select,
 }: {
@@ -86,12 +86,15 @@ export default function CategoryFilter({
               select({ key: search.key, value: e.currentTarget.value })
             }
             list={search.key === "i" ? "ingredient_picker" : undefined}
+            placeholder="Input the name ..."
             className="flex-grow"
           />
           {search.key === "i" && (
             <datalist id="ingredient_picker">
               {chips.map(chip => (
-                <option value={chip}>{chip}</option>
+                <option key={`input_datalist_chip_${chip}`} value={chip}>
+                  {chip}
+                </option>
               ))}
             </datalist>
           )}

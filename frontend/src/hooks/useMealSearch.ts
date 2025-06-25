@@ -30,7 +30,7 @@ export function useMealSearch() {
     } else if (i) {
       setSearch({ key: "i", value: MealsService.decodeSearchParameter(i) });
     } else {
-      setSearch({ key: "c", value: "" });
+      setSearch({ key: "s", value: "" });
     }
   }, []);
 

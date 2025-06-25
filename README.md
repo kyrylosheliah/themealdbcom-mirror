@@ -38,6 +38,8 @@ npm run build
 npm run start
 ```
 
+Browse `localhost:5000`
+
 ## Third-Party Dependencies
 
 The file `frontend/src/styles/yorha.css` is included for layout consistency.

@@ -4,7 +4,12 @@ import { MealsService } from "./meals.service";
 import { HttpModule } from "@nestjs/axios";
 import { ConfigModule } from "@nestjs/config";
 import { CacheModule } from "@nestjs/cache-manager";
-import { AreasResponse, CategoriesResponse, IngredientsResponse, Meal } from "src/meals/meals.interface";
+import {
+  AreasResponse,
+  CategoriesResponse,
+  IngredientsResponse,
+  Meal,
+} from "src/meals/meals.interface";
 
 const ingredientKeys: Array<keyof Meal> = Array.from(
   { length: 20 },
@@ -70,21 +75,33 @@ describe("MealsController", () => {
 
   describe("getList()", () => {
     it("should return categories", async () => {
-      const result = await controller.getList(undefined, "list", undefined) as CategoriesResponse;
+      const result = (await controller.getList(
+        undefined,
+        "list",
+        undefined,
+      )) as CategoriesResponse;
       expect(result.meals !== null).toBe(true);
       expect(result.meals!.length).toBeGreaterThan(0);
       expect(typeof result.meals![0].strCategory).toEqual("string");
     });
 
     it("should return areas", async () => {
-      const result = await controller.getList("list", undefined, undefined) as AreasResponse;
+      const result = (await controller.getList(
+        "list",
+        undefined,
+        undefined,
+      )) as AreasResponse;
       expect(result.meals !== null).toBe(true);
       expect(result.meals!.length).toBeGreaterThan(0);
       expect(typeof result.meals![0].strArea).toEqual("string");
     });
 
     it("should return ingredients", async () => {
-      const result = await controller.getList(undefined, undefined, "list") as IngredientsResponse;
+      const result = (await controller.getList(
+        undefined,
+        undefined,
+        "list",
+      )) as IngredientsResponse;
       expect(result.meals !== null).toBe(true);
       expect(result.meals!.length).toBeGreaterThan(0);
       expect(typeof result.meals![0].strIngredient).toEqual("string");
@@ -134,6 +151,5 @@ describe("MealsController", () => {
         : false;
       expect(firstItemHasIngredient).toBe(true);
     });
-
   });
 });

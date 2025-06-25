@@ -14,6 +14,8 @@ async function bootstrap() {
 
   const port = configService.get<string>("NESTJS_PORT") || "";
 
+  console.log(`listening at localhost:${port}`);
+
   await app.listen(port);
 }
 bootstrap().catch(e => console.log(e));

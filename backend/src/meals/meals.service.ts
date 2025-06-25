@@ -3,7 +3,13 @@ import { CACHE_MANAGER } from "@nestjs/cache-manager";
 import { Cache } from "cache-manager";
 import axios from "axios";
 import { ConfigService } from "@nestjs/config";
-import { AreasResponse, CategoriesResponse, FilteredMealResponse, IngredientsResponse, MealsResponse } from "src/meals/meals.interface";
+import {
+  AreasResponse,
+  CategoriesResponse,
+  FilteredMealResponse,
+  IngredientsResponse,
+  MealsResponse,
+} from "src/meals/meals.interface";
 
 @Injectable()
 export class MealsService {
@@ -18,10 +24,7 @@ export class MealsService {
     );
   }
 
-  private async getCachedOrFetch<T>(
-    key: string,
-    url: string,
-  ): Promise<T> {
+  private async getCachedOrFetch<T>(key: string, url: string): Promise<T> {
     const cached = await this.cacheManager.get<T>(key);
     if (cached) return cached;
     const result = await axios
@@ -40,12 +43,17 @@ export class MealsService {
 
   async getMealById(id: string) {
     if (!id) return { meals: null };
-    return this.getCachedOrFetch<MealsResponse>(`meal_${id}`, `/lookup.php?i=${id}`);
+    return this.getCachedOrFetch<MealsResponse>(
+      `meal_${id}`,
+      `/lookup.php?i=${id}`,
+    );
   }
 
   async getRandomMeal() {
     // no caching
-    return axios.get<MealsResponse>(`${this.baseUrl}/random.php`).then(res => res.data);
+    return axios
+      .get<MealsResponse>(`${this.baseUrl}/random.php`)
+      .then(res => res.data);
   }
 
   async getAreas() {
@@ -53,11 +61,17 @@ export class MealsService {
   }
 
   async getCategories() {
-    return this.getCachedOrFetch<CategoriesResponse>("categories_list", "/list.php?c=list");
+    return this.getCachedOrFetch<CategoriesResponse>(
+      "categories_list",
+      "/list.php?c=list",
+    );
   }
 
   async getIngredients() {
-    return this.getCachedOrFetch<IngredientsResponse>("ingredients", "/list.php?i=list");
+    return this.getCachedOrFetch<IngredientsResponse>(
+      "ingredients",
+      "/list.php?i=list",
+    );
   }
 
   async filterByCategory(category: string) {
@@ -73,7 +87,7 @@ export class MealsService {
       `/filter.php?a=${area}`,
     );
   }
-  
+
   async filterByIngredient(ingredient: string) {
     return this.getCachedOrFetch<FilteredMealResponse>(
       `filter_by_ingredient_${ingredient}`,

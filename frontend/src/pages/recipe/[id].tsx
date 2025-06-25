@@ -2,7 +2,6 @@ import MealCol from "@/components/MealCol";
 import { useMealSearch } from "@/hooks/useMealSearch";
 import MealsService, { Meal, MealsResponse } from "@/services/MealsService";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -99,12 +98,10 @@ export default function RecipePage() {
           </h3>
           <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
             <div className="relative w-full min-h-80">
-              <Image
+              <img
                 src={meal.strMealThumb}
                 alt={meal.strMeal}
-                fill={true}
-                objectFit="cover"
-                className="w-full"
+                className="w-full h-full object-cover"
               />
             </div>
             <figure className="m-0">

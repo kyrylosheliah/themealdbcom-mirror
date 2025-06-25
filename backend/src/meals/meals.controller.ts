@@ -1,15 +1,14 @@
 import { Controller, Get, Query } from "@nestjs/common";
 import { MealsService } from "./meals.service";
 
+// `npm run test meals.controller`
+
 @Controller()
 export class MealsController {
   constructor(private readonly mealsService: MealsService) {}
 
   @Get("search.php")
-  async search(
-    @Query("s") name?: string,
-    @Query("f") firstLetter?: string,
-  ) {
+  async search(@Query("s") name?: string, @Query("f") firstLetter?: string) {
     // Search meals by name
     if (name !== undefined) return this.mealsService.searchMeals(name);
     // Search by first letter
