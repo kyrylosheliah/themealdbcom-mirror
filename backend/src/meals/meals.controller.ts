@@ -5,10 +5,16 @@ import { MealsService } from "./meals.service";
 export class MealsController {
   constructor(private readonly mealsService: MealsService) {}
 
-  // Search meals by name
   @Get("search.php")
-  async searchMeals(@Query("s") search: string) {
-    return this.mealsService.searchMeals(search);
+  async search(
+    @Query("s") name?: string,
+    @Query("f") firstLetter?: string,
+  ) {
+    // Search meals by name
+    if (name !== undefined) return this.mealsService.searchMeals(name);
+    // Search by first letter
+    if (firstLetter) return this.mealsService.searchByFirstLetter(firstLetter);
+    return { meals: null };
   }
 
   // Get meal details by ID
@@ -38,19 +44,14 @@ export class MealsController {
 
   // Filter meals by category
   @Get("filter.php")
-  async filterMeals(
+  async filter(
     @Query("c") category?: string,
     @Query("a") area?: string,
     @Query("i") ingredient?: string,
   ) {
-    return this.mealsService.filterMeals({ category, area, ingredient });
-  }
-
-  // Search meals by first letter
-  @Get("search.php")
-  async searchByFirstLetter(@Query("f") firstLetter: string) {
-    if (firstLetter) {
-      return this.mealsService.searchByFirstLetter(firstLetter);
-    }
+    if (category) return this.mealsService.filterByCategory(category);
+    if (area) return this.mealsService.filterByArea(area);
+    if (ingredient) return this.mealsService.filterByIngredient(ingredient);
+    return { meals: null };
   }
 }

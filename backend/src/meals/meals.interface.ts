@@ -58,13 +58,42 @@ export interface MealsResponse {
   meals: Meal[] | null;
 }
 
+export interface FilteredMeal {
+  strMeal: string;
+  strMealThumb: string;
+  idMeal: string;
+}
+
+export interface FilteredMealResponse {
+  meals: FilteredMeal[] | null;
+}
+
 export interface Category {
-  idCategory: string;
+  // idCategory: string;
   strCategory: string;
-  strCategoryThumb: string;
-  strCategoryDescription: string;
+  // strCategoryThumb: string;
+  // strCategoryDescription: string;
 }
 
 export interface CategoriesResponse {
-  categories: Category[];
+  meals: Category[] | null;
+}
+
+export interface Ingredient {
+  idIngredient: string;
+  strIngredient: string;
+  stdDescription: string;
+  strType: string | null;
+}
+
+export interface IngredientsResponse {
+  meals: Ingredient[] | null;
+}
+
+export interface Area {
+  strArea: string;
+}
+
+export interface AreasResponse {
+  meals: Area[] | null;
 }

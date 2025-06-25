@@ -3,7 +3,7 @@ import { CACHE_MANAGER } from "@nestjs/cache-manager";
 import { Cache } from "cache-manager";
 import axios from "axios";
 import { ConfigService } from "@nestjs/config";
-import { MealsResponse } from "src/meals/meals.interface";
+import { AreasResponse, CategoriesResponse, FilteredMealResponse, IngredientsResponse, MealsResponse } from "src/meals/meals.interface";
 
 @Injectable()
 export class MealsService {
@@ -18,90 +18,76 @@ export class MealsService {
     );
   }
 
-  private async getCachedOrFetch(
+  private async getCachedOrFetch<T>(
     key: string,
     url: string,
-  ): Promise<MealsResponse> {
-    const cached = await this.cacheManager.get<MealsResponse>(key);
+  ): Promise<T> {
+    const cached = await this.cacheManager.get<T>(key);
     if (cached) return cached;
-    const result = await axios.get<MealsResponse>(url).then(res => res.data);
+    const result = await axios
+      .get<T>(`${this.baseUrl}${url}`)
+      .then(res => res.data);
     await this.cacheManager.set(key, result);
     return result;
   }
 
-  async searchMeals(name?: string) {
-    name = name || "";
-    return this.getCachedOrFetch(
+  async searchMeals(name: string) {
+    return this.getCachedOrFetch<MealsResponse>(
       `search_meals_${name}`,
-      `${this.baseUrl}/search.php?s=${name}`,
+      `/search.php?s=${name}`,
     );
   }
 
   async getMealById(id: string) {
     if (!id) return { meals: null };
-    return this.getCachedOrFetch(
-      `meal_${id}`,
-      `${this.baseUrl}/lookup.php?i=${id}`,
-    );
+    return this.getCachedOrFetch<MealsResponse>(`meal_${id}`, `/lookup.php?i=${id}`);
   }
 
   async getRandomMeal() {
-    return axios
-      .get<MealsResponse>(`${this.baseUrl}/random.php`)
-      .then(res => res.data);
+    // no caching
+    return axios.get<MealsResponse>(`${this.baseUrl}/random.php`).then(res => res.data);
   }
 
   async getAreas() {
-    return this.getCachedOrFetch("areas", `${this.baseUrl}/list.php?a=list`);
+    return this.getCachedOrFetch<AreasResponse>("areas", "/list.php?a=list");
   }
 
   async getCategories() {
-    return this.getCachedOrFetch(
-      "categories_list",
-      `${this.baseUrl}/list.php?c=list`,
-    );
+    return this.getCachedOrFetch<CategoriesResponse>("categories_list", "/list.php?c=list");
   }
 
   async getIngredients() {
-    return this.getCachedOrFetch(
-      "ingredients",
-      `${this.baseUrl}/list.php?i=list`,
+    return this.getCachedOrFetch<IngredientsResponse>("ingredients", "/list.php?i=list");
+  }
+
+  async filterByCategory(category: string) {
+    return this.getCachedOrFetch<FilteredMealResponse>(
+      `filter_by_category_${category}`,
+      `/filter.php?c=${category}`,
     );
   }
 
-  async filterMeals({
-    category,
-    area,
-    ingredient,
-  }: {
-    category?: string;
-    area?: string;
-    ingredient?: string;
-  }) {
-    let url = `${this.baseUrl}/filter.php?`;
-    let cacheKey = "filter_meals_";
-    if (category) {
-      url += `c=${category}`;
-      cacheKey += `category_${category}`;
-    } else if (area) {
-      url += `a=${area}`;
-      cacheKey += `area_${area}`;
-    } else if (ingredient) {
-      url += `i=${ingredient}`;
-      cacheKey += `ingredient_${ingredient}`;
-    } else {
-      return { meals: null };
-    }
-    return this.getCachedOrFetch(cacheKey, url);
+  async filterByArea(area: string) {
+    return this.getCachedOrFetch<FilteredMealResponse>(
+      `filter_by_area_${area}`,
+      `/filter.php?a=${area}`,
+    );
+  }
+  
+  async filterByIngredient(ingredient: string) {
+    return this.getCachedOrFetch<FilteredMealResponse>(
+      `filter_by_ingredient_${ingredient}`,
+      `/filter.php?i=${ingredient}`,
+    );
   }
 
   async searchByFirstLetter(letter: string) {
     if (!letter || letter.length !== 1) {
       return { meals: null };
     }
-    return this.getCachedOrFetch(
+    return this.getCachedOrFetch<MealsResponse>(
       `search_by_letter_${letter}`,
-      `${this.baseUrl}/search.php?f=${letter}`,
+      `/search.php?f=${letter}`,
     );
   }
 }

@@ -43,8 +43,3 @@ npm run start
 The file `frontend/src/styles/yorha.css` is included for layout consistency.
 It is not authored or maintained by this project. It is pinned at the latest
 version to avoid old dependency issues or unexpected upstream changes.
-
-## TODOs
-
-- Create tests
-- Ensure it's linted
