@@ -46,6 +46,5 @@ version to avoid old dependency issues or unexpected upstream changes.
 
 ## TODOs
 
-- Complete ESLint setup
 - Create tests
 - Ensure it's linted
