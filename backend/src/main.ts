@@ -6,14 +6,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const configService = app.get(ConfigService);
-  const frontend = configService.get("FRONTEND_DOMAIN");
+  const frontend = configService.get<string>("FRONTEND_DOMAIN") || "";
 
   app.enableCors({
     origin: frontend,
   });
 
-  const port = configService.get("NESTJS_PORT");
+  const port = configService.get<string>("NESTJS_PORT") || "";
 
   await app.listen(port);
 }
-bootstrap();
+bootstrap().catch(e => console.log(e));

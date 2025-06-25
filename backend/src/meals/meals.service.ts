@@ -3,6 +3,7 @@ import { CACHE_MANAGER } from "@nestjs/cache-manager";
 import { Cache } from "cache-manager";
 import axios from "axios";
 import { ConfigService } from "@nestjs/config";
+import { MealsResponse } from "src/meals/meals.interface";
 
 @Injectable()
 export class MealsService {
@@ -17,10 +18,13 @@ export class MealsService {
     );
   }
 
-  private async getCachedOrFetch<T>(key: string, url: string): Promise<T> {
-    const cached = await this.cacheManager.get<T>(key);
+  private async getCachedOrFetch(
+    key: string,
+    url: string,
+  ): Promise<MealsResponse> {
+    const cached = await this.cacheManager.get<MealsResponse>(key);
     if (cached) return cached;
-    const result = await axios.get(url).then(res => res.data);
+    const result = await axios.get<MealsResponse>(url).then(res => res.data);
     await this.cacheManager.set(key, result);
     return result;
   }
@@ -42,7 +46,9 @@ export class MealsService {
   }
 
   async getRandomMeal() {
-    return axios.get(`${this.baseUrl}/random.php`).then(res => res.data);
+    return axios
+      .get<MealsResponse>(`${this.baseUrl}/random.php`)
+      .then(res => res.data);
   }
 
   async getAreas() {
