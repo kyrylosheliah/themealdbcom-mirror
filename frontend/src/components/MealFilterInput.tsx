@@ -1,4 +1,12 @@
-import MealsService, { MealSearch } from "@/services/MealsService";
+import MealsService, {
+  Area,
+  AreasResponse,
+  CategoriesResponse,
+  Category,
+  Ingredient,
+  IngredientsResponse,
+  MealSearch,
+} from "@/services/MealsService";
 import { useEffect, useState } from "react";
 
 export default function CategoryFilter({
@@ -13,22 +21,28 @@ export default function CategoryFilter({
   const fetchCategories = async () => {
     const response = await MealsService.getCategories()
       .then(res => res.data)
-      .catch(() => []);
-    setChips(response.meals.map((c: any) => c.strCategory));
+      .catch((): CategoriesResponse => ({ meals: [] }));
+    setChips(
+      response.meals ? response.meals.map((c: Category) => c.strCategory) : [],
+    );
   };
 
   const fetchIngredients = async () => {
     const response = await MealsService.getIngredients()
       .then(res => res.data)
-      .catch(() => []);
-    setChips(response.meals.map((c: any) => c.strIngredient));
+      .catch((): IngredientsResponse => ({ meals: [] }));
+    setChips(
+      response.meals
+        ? response.meals.map((c: Ingredient) => c.strIngredient)
+        : [],
+    );
   };
 
   const fetchAreas = async () => {
     const response = await MealsService.getAreas()
       .then(res => res.data)
-      .catch(() => []);
-    setChips(response.meals.map((c: any) => c.strArea));
+      .catch((): AreasResponse => ({ meals: [] }));
+    setChips(response.meals ? response.meals.map((c: Area) => c.strArea) : []);
   };
 
   const reset = () => setChips([]);
@@ -36,13 +50,13 @@ export default function CategoryFilter({
   useEffect(() => {
     switch (search.key) {
       case "c":
-        fetchCategories();
+        fetchCategories().catch(e => console.log(e));
         break;
       case "a":
-        fetchAreas();
+        fetchAreas().catch(e => console.log(e));
         break;
       case "i":
-        fetchIngredients();
+        fetchIngredients().catch(e => console.log(e));
         break;
       default:
         reset();

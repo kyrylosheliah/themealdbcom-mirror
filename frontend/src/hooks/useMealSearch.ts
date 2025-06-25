@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
-import MealsService, { MealSearch } from "@/services/MealsService";
+import MealsService, {
+  Meal,
+  MealSearch,
+  MealsResponse,
+} from "@/services/MealsService";
 import { useSearchParams } from "next/navigation";
 
 export function useMealSearch() {
   const searchParams = useSearchParams();
-  const [meals, setMeals] = useState([]);
+  const [meals, setMeals] = useState<Meal[]>([]);
   const [searchTitle, setSearchTitle] = useState<string | undefined>();
-  const [search, setSearch] = useState<MealSearch>({ key: "", value: "" });
+  const initialSearch: MealSearch = { key: "", value: "" };
+  const [search, setSearch]: [
+    MealSearch,
+    React.Dispatch<React.SetStateAction<MealSearch>>,
+  ] = useState<MealSearch>(initialSearch);
 
   useEffect(() => {
     const s = searchParams.get("s");
@@ -48,7 +56,7 @@ export function useMealSearch() {
   };
 
   const fetchMeals = async () => {
-    let mealsResponse: any = undefined!;
+    let mealsResponse: MealsResponse = undefined!;
     switch (search.key) {
       case "c":
         mealsResponse = await MealsService.filterWithCategory(
@@ -78,7 +86,7 @@ export function useMealSearch() {
 
   useEffect(() => {
     updateVisibleState();
-    fetchMeals();
+    fetchMeals().catch(e => console.log(e));
   }, [search]);
 
   return {

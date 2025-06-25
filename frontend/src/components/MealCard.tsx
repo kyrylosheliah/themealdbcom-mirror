@@ -1,6 +1,7 @@
+import { Meal } from "@/services/MealsService";
 import Link from "next/link";
 
-export default function MealCard({ meal }: { meal: any }) {
+export default function MealCard({ meal }: { meal: Meal }) {
   return (
     <Link href={`/recipe/${meal.idMeal}`}>
       <figure className="group hover:shadow-xl m-0">

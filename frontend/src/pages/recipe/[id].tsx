@@ -1,6 +1,6 @@
 import MealCol from "@/components/MealCol";
 import { useMealSearch } from "@/hooks/useMealSearch";
-import MealsService from "@/services/MealsService";
+import MealsService, { Meal, MealsResponse } from "@/services/MealsService";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,8 +9,12 @@ import { useEffect, useState } from "react";
 
 export default function RecipePage() {
   const router = useRouter();
-  const { id } = router.query;
-  const [meal, setMeal] = useState<any>(null);
+  const id = router.query["id"]
+    ? typeof router.query["id"] === "string"
+      ? router.query["id"]
+      : router.query["id"][0]
+    : "";
+  const [meal, setMeal] = useState<Meal | undefined>(undefined);
   const [error, setError] = useState<boolean>(false);
 
   const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>(false);
@@ -20,7 +24,10 @@ export default function RecipePage() {
   const get = async () => {
     const recipeResponse = await MealsService.getById(id)
       .then(res => res.data)
-      .catch(() => setError(true));
+      .catch((): MealsResponse => {
+        setError(true);
+        return { meals: [] };
+      });
     if (recipeResponse.meals === null) return;
     if (Array.isArray(recipeResponse.meals)) {
       setMeal(recipeResponse.meals[0]);
@@ -32,15 +39,15 @@ export default function RecipePage() {
   };
 
   const goBack = () => {
-    router.push("/");
+    router.push("/").catch(e => console.log(e));
   };
 
   useEffect(() => {
-    if (id) get();
+    if (id) get().catch(e => console.log(e));
     setSidebarIsOpen(false);
   }, [id]);
 
-  if (!(meal || error)) return <div className="p-4">Loading...</div>;
+  if (meal === undefined || error) return <div className="p-4">Loading...</div>;
 
   if (error) return <div className="p-4">Error</div>;
 
